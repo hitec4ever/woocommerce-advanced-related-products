@@ -1,0 +1,76 @@
+/* WooCommerce Advanced Related Products - Slider Mode Overrides */
+
+/* Override flexbox grid when products are inside a slider */
+.wc-arp-slider .products {
+    display: block;
+    flex-wrap: initial;
+    margin: 0;
+    padding: 0;
+}
+
+.wc-arp-slider .products li.product {
+    flex: none;
+    max-width: none;
+    width: auto;
+    margin-bottom: 0;
+}
+
+/* Slider container */
+.wc-arp-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Arrow styling */
+.wc-arp-slider .splide__arrow {
+    background: #677ce7;
+    opacity: 0.9;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wc-arp-slider .splide__arrow:hover {
+    opacity: 1;
+}
+
+.wc-arp-slider .splide__arrow svg {
+    fill: #fff;
+    width: 16px;
+    height: 16px;
+}
+
+/* Position arrows slightly outside the track */
+.wc-arp-slider .splide__arrow--prev {
+    left: -18px;
+}
+
+.wc-arp-slider .splide__arrow--next {
+    right: -18px;
+}
+
+/* Responsive arrow positioning */
+@media (max-width: 768px) {
+    .wc-arp-slider .splide__arrow--prev {
+        left: -8px;
+    }
+
+    .wc-arp-slider .splide__arrow--next {
+        right: -8px;
+    }
+
+    .wc-arp-slider .splide__arrow {
+        width: 30px;
+        height: 30px;
+    }
+
+    .wc-arp-slider .splide__arrow svg {
+        width: 12px;
+        height: 12px;
+    }
+}

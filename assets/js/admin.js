@@ -29,20 +29,30 @@ var WCAdvancedRelatedProductsAdmin = {
             WCAdvancedRelatedProductsAdmin.toggleFilterOptions(jQuery(this).val());
         });
         
-        // Category method change handler  
+        // Category method change handler
         jQuery(document).on('change', 'input[name="category_method"]', function() {
             WCAdvancedRelatedProductsAdmin.toggleCategoryMethod(jQuery(this).val());
         });
-        
+
+        // Display mode change handler (generator form)
+        jQuery(document).on('change', '#display-mode-select', function() {
+            WCAdvancedRelatedProductsAdmin.toggleSliderOptions(jQuery(this).val(), '#slider-options');
+        });
+
         // Initialize on page load
         var initialFilterType = jQuery('#filter-type-select').val();
         if (initialFilterType) {
             this.toggleFilterOptions(initialFilterType);
         }
-        
+
         var initialCategoryMethod = jQuery('input[name="category_method"]:checked').val();
         if (initialCategoryMethod) {
             this.toggleCategoryMethod(initialCategoryMethod);
+        }
+
+        var initialDisplayMode = jQuery('#display-mode-select').val();
+        if (initialDisplayMode) {
+            this.toggleSliderOptions(initialDisplayMode, '#slider-options');
         }
     },
     
@@ -67,6 +77,17 @@ var WCAdvancedRelatedProductsAdmin = {
             jQuery('#specific-category').show();
         } else {
             jQuery('#specific-category').hide();
+        }
+    },
+
+    /**
+     * Toggle slider options visibility
+     */
+    toggleSliderOptions: function(displayMode, containerSelector) {
+        if (displayMode === 'slider') {
+            jQuery(containerSelector).show();
+        } else {
+            jQuery(containerSelector).hide();
         }
     },
     
@@ -239,6 +260,11 @@ var WCAdvancedRelatedProductsAdmin = {
                 jQuery('#edit-specific-category').hide();
             }
         });
+
+        // Display mode change (edit modal)
+        jQuery(document).on('change', '#edit-display-mode-select', function() {
+            WCAdvancedRelatedProductsAdmin.toggleSliderOptions(jQuery(this).val(), '#edit-slider-options');
+        });
     },
     
     /**
@@ -377,6 +403,69 @@ var WCAdvancedRelatedProductsAdmin = {
                             <input type="checkbox" name="show_price" value="1" ${data.show_price ? 'checked' : ''} />
                             <span class="wc-toggle-slider"></span>
                         </label>
+                    </div>
+                </div>
+
+                <div class="wc-advanced-related-products-setting-row">
+                    <div class="setting-label">
+                        <label>Display Mode</label>
+                    </div>
+                    <div class="setting-field">
+                        <select name="display_mode" class="wc-select-field" id="edit-display-mode-select">
+                            <option value="grid" ${(!data.display_mode || data.display_mode === 'grid') ? 'selected' : ''}>Grid</option>
+                            <option value="slider" ${data.display_mode === 'slider' ? 'selected' : ''}>Slider / Carousel</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="edit-slider-options" ${(!data.display_mode || data.display_mode !== 'slider') ? 'style="display:none;"' : ''}>
+                    <div class="wc-settings-row-pair">
+                        <div class="wc-advanced-related-products-setting-row">
+                            <div class="setting-label">
+                                <label>Loop Slider</label>
+                            </div>
+                            <div class="setting-field">
+                                <label class="wc-toggle-switch">
+                                    <input type="checkbox" name="slider_loop" value="1" ${data.slider_loop ? 'checked' : ''} />
+                                    <span class="wc-toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="wc-advanced-related-products-setting-row">
+                            <div class="setting-label">
+                                <label>Show Navigation</label>
+                            </div>
+                            <div class="setting-field">
+                                <label class="wc-toggle-switch">
+                                    <input type="checkbox" name="slider_arrows" value="1" ${(data.slider_arrows === undefined || data.slider_arrows) ? 'checked' : ''} />
+                                    <span class="wc-toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wc-settings-row-pair">
+                        <div class="wc-advanced-related-products-setting-row">
+                            <div class="setting-label">
+                                <label>Auto Slide</label>
+                            </div>
+                            <div class="setting-field">
+                                <label class="wc-toggle-switch">
+                                    <input type="checkbox" name="slider_autoplay" value="1" ${data.slider_autoplay ? 'checked' : ''} />
+                                    <span class="wc-toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="wc-advanced-related-products-setting-row">
+                            <div class="setting-label">
+                                <label>Slide Interval (ms)</label>
+                            </div>
+                            <div class="setting-field">
+                                <input type="number" name="slider_interval" value="${data.slider_interval || 6000}" min="1000" max="30000" step="500" class="wc-input-field" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

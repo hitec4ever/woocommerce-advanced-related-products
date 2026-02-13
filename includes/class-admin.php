@@ -478,6 +478,76 @@ class WC_Advanced_Related_Products_Admin {
                         </div>
                     </div>
 
+                    <!-- Display Mode -->
+                    <div class="wc-advanced-related-products-setting-row">
+                        <div class="setting-label">
+                            <label><?php echo esc_html__('Display Mode', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></label>
+                            <p class="setting-description"><?php echo esc_html__('Show products in a grid or as a slider/carousel', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></p>
+                        </div>
+                        <div class="setting-field">
+                            <select name="display_mode" class="wc-select-field" id="display-mode-select">
+                                <option value="grid"><?php echo esc_html__('Grid', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></option>
+                                <option value="slider"><?php echo esc_html__('Slider / Carousel', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Slider Options (shown only when display_mode is slider) -->
+                    <div id="slider-options" style="display: none;">
+                        <div class="wc-settings-row-pair">
+                            <div class="wc-advanced-related-products-setting-row">
+                                <div class="setting-label">
+                                    <label><?php echo esc_html__('Loop Slider', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></label>
+                                    <p class="setting-description"><?php echo esc_html__('Continuously loop through products', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></p>
+                                </div>
+                                <div class="setting-field">
+                                    <label class="wc-toggle-switch">
+                                        <input type="checkbox" name="slider_loop" value="1" />
+                                        <span class="wc-toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="wc-advanced-related-products-setting-row">
+                                <div class="setting-label">
+                                    <label><?php echo esc_html__('Show Navigation', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></label>
+                                    <p class="setting-description"><?php echo esc_html__('Show previous/next navigation arrows', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></p>
+                                </div>
+                                <div class="setting-field">
+                                    <label class="wc-toggle-switch">
+                                        <input type="checkbox" name="slider_arrows" value="1" checked />
+                                        <span class="wc-toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wc-settings-row-pair">
+                            <div class="wc-advanced-related-products-setting-row">
+                                <div class="setting-label">
+                                    <label><?php echo esc_html__('Auto Slide', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></label>
+                                    <p class="setting-description"><?php echo esc_html__('Automatically advance slides', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></p>
+                                </div>
+                                <div class="setting-field">
+                                    <label class="wc-toggle-switch">
+                                        <input type="checkbox" name="slider_autoplay" value="1" />
+                                        <span class="wc-toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="wc-advanced-related-products-setting-row">
+                                <div class="setting-label">
+                                    <label><?php echo esc_html__('Slide Interval (ms)', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></label>
+                                    <p class="setting-description"><?php echo esc_html__('Time between slides in milliseconds (1000-30000)', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></p>
+                                </div>
+                                <div class="setting-field">
+                                    <input type="number" name="slider_interval" value="6000" min="1000" max="30000" step="500" class="wc-input-field" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 
                 <div class="wc-advanced-related-products-save-section">
@@ -792,27 +862,32 @@ class WC_Advanced_Related_Products_Admin {
             'section_title' => isset($_POST['section_title']) ? sanitize_text_field($_POST['section_title']) : 'Related Products',
             'title_alignment' => isset($_POST['title_alignment']) ? sanitize_text_field($_POST['title_alignment']) : 'left',
             'show_price' => isset($_POST['show_price']) ? 1 : 0,
+            'display_mode' => isset($_POST['display_mode']) && $_POST['display_mode'] === 'slider' ? 'slider' : 'grid',
+            'slider_loop' => isset($_POST['slider_loop']) ? 1 : 0,
+            'slider_autoplay' => isset($_POST['slider_autoplay']) ? 1 : 0,
+            'slider_interval' => isset($_POST['slider_interval']) ? min(30000, max(1000, absint($_POST['slider_interval']))) : 6000,
+            'slider_arrows' => isset($_POST['slider_arrows']) ? 1 : 0,
             'created' => current_time('mysql')
         );
-        
+
         // Validate required fields
         if (empty($data['title'])) {
             wp_send_json_error(__('Shortcode title is required.', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN));
         }
-        
+
         // Validate number ranges
         if ($data['number_of_products'] < 1 || $data['number_of_products'] > 12) {
             $data['number_of_products'] = 4;
         }
-        
+
         if (!in_array($data['number_of_columns'], array(2, 3, 4, 6))) {
             $data['number_of_columns'] = 4;
         }
-        
+
         try {
             // Get existing shortcodes
             $shortcodes = get_option('wc_advanced_related_products_shortcodes', array());
-            
+
             // Generate unique ID
             $id = uniqid('wc_arp_');
             
@@ -939,26 +1014,31 @@ class WC_Advanced_Related_Products_Admin {
             'section_title' => isset($_POST['section_title']) ? sanitize_text_field($_POST['section_title']) : 'Related Products',
             'title_alignment' => isset($_POST['title_alignment']) ? sanitize_text_field($_POST['title_alignment']) : 'left',
             'show_price' => isset($_POST['show_price']) ? 1 : 0,
+            'display_mode' => isset($_POST['display_mode']) && $_POST['display_mode'] === 'slider' ? 'slider' : 'grid',
+            'slider_loop' => isset($_POST['slider_loop']) ? 1 : 0,
+            'slider_autoplay' => isset($_POST['slider_autoplay']) ? 1 : 0,
+            'slider_interval' => isset($_POST['slider_interval']) ? min(30000, max(1000, absint($_POST['slider_interval']))) : 6000,
+            'slider_arrows' => isset($_POST['slider_arrows']) ? 1 : 0,
             'updated' => current_time('mysql')
         );
-        
+
         // Validate required fields
         if (empty($data['title'])) {
             wp_send_json_error(__('Shortcode title is required.', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN));
         }
-        
+
         // Validate number ranges
         if ($data['number_of_products'] < 1 || $data['number_of_products'] > 12) {
             $data['number_of_products'] = 4;
         }
-        
+
         if (!in_array($data['number_of_columns'], array(2, 3, 4, 6))) {
             $data['number_of_columns'] = 4;
         }
-        
+
         try {
             $shortcodes = get_option('wc_advanced_related_products_shortcodes', array());
-            
+
             if (isset($shortcodes[$id])) {
                 // Preserve creation date
                 if (isset($shortcodes[$id]['created'])) {
@@ -1135,6 +1215,7 @@ class WC_Advanced_Related_Products_Admin {
         $allowed_alignments = array('left', 'center', 'right');
         $allowed_filter_types = array('category', 'attribute');
         $allowed_category_methods = array('current', 'specific');
+        $allowed_display_modes = array('grid', 'slider');
 
         foreach ($input as $id => $shortcode) {
             $sanitized_id = sanitize_key($id);
@@ -1150,6 +1231,11 @@ class WC_Advanced_Related_Products_Admin {
                 'section_title'      => sanitize_text_field($shortcode['section_title'] ?? ''),
                 'title_alignment'    => in_array($shortcode['title_alignment'] ?? '', $allowed_alignments) ? $shortcode['title_alignment'] : 'left',
                 'show_price'         => isset($shortcode['show_price']) ? absint($shortcode['show_price']) : 0,
+                'display_mode'       => in_array($shortcode['display_mode'] ?? '', $allowed_display_modes) ? $shortcode['display_mode'] : 'grid',
+                'slider_loop'        => isset($shortcode['slider_loop']) ? absint($shortcode['slider_loop']) : 0,
+                'slider_autoplay'    => isset($shortcode['slider_autoplay']) ? absint($shortcode['slider_autoplay']) : 0,
+                'slider_interval'    => min(30000, max(1000, absint($shortcode['slider_interval'] ?? 6000))),
+                'slider_arrows'      => isset($shortcode['slider_arrows']) ? absint($shortcode['slider_arrows']) : 1,
                 'created'            => sanitize_text_field($shortcode['created'] ?? ''),
             );
             if (isset($shortcode['updated'])) {

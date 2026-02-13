@@ -44,14 +44,46 @@ class WC_Advanced_Related_Products_Shortcode {
     }
     
     /**
-     * Enqueue minimal frontend styles
+     * Enqueue minimal frontend styles and register slider assets
      */
     public function enqueue_frontend_styles() {
+        // Always enqueue grid styles
         wp_enqueue_style(
             'wc-advanced-related-products-frontend',
             WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL . 'assets/css/frontend.css',
             array(),
             WC_ADVANCED_RELATED_PRODUCTS_VERSION
+        );
+
+        // Register slider assets (only enqueued when a slider shortcode is rendered)
+        wp_register_style(
+            'splide-core',
+            WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL . 'assets/css/splide-core.min.css',
+            array(),
+            '4.1.4'
+        );
+
+        wp_register_style(
+            'wc-advanced-related-products-slider',
+            WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL . 'assets/css/frontend-slider.css',
+            array('splide-core'),
+            WC_ADVANCED_RELATED_PRODUCTS_VERSION
+        );
+
+        wp_register_script(
+            'splide',
+            WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL . 'assets/js/splide.min.js',
+            array(),
+            '4.1.4',
+            true
+        );
+
+        wp_register_script(
+            'wc-advanced-related-products-slider',
+            WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL . 'assets/js/frontend.js',
+            array('splide'),
+            WC_ADVANCED_RELATED_PRODUCTS_VERSION,
+            true
         );
     }
     
@@ -207,29 +239,44 @@ class WC_Advanced_Related_Products_Shortcode {
      */
     private function render_products($query_args, $atts, $config) {
         $related_products = new WP_Query($query_args);
-        
+
         if (!$related_products->have_posts()) {
             return '';
         }
-        
+
+        // Determine if slider mode is active
+        $is_slider = isset($config['display_mode']) && $config['display_mode'] === 'slider';
+
+        // Enqueue slider assets when needed
+        if ($is_slider) {
+            wp_enqueue_style('wc-advanced-related-products-slider');
+            wp_enqueue_script('wc-advanced-related-products-slider');
+        }
+
         ob_start();
-        
+
         // Set WooCommerce loop properties for theme compatibility
         global $woocommerce_loop;
         $woocommerce_loop['is_shortcode'] = true;
         $woocommerce_loop['columns'] = $atts['columns'];
         $woocommerce_loop['name'] = 'related';
-        
+
         // Also set modern loop properties
         wc_set_loop_prop('is_shortcode', true);
         wc_set_loop_prop('columns', $atts['columns']);
         wc_set_loop_prop('name', 'related');
-        
+
         // Force theme to recognize this as a shop loop for proper styling
         wc_set_loop_prop('is_paginated', false);
         wc_set_loop_prop('total', $related_products->found_posts);
         wc_set_loop_prop('current_page', 1);
-        
+
+        // Add temporary WC filters for Splide classes
+        if ($is_slider) {
+            add_filter('woocommerce_product_loop_start', array($this, 'filter_loop_start_splide'));
+            add_filter('wc_product_class', array($this, 'filter_product_class_splide'));
+        }
+
         ?>
         <section class="related products">
             <?php if (!empty($atts['title'])) : ?>
@@ -237,46 +284,83 @@ class WC_Advanced_Related_Products_Shortcode {
                     <?php echo esc_html($atts['title']); ?>
                 </h2>
             <?php endif; ?>
-            
+
+            <?php if ($is_slider) : ?>
+            <div class="wc-arp-slider splide"
+                 data-wc-arp-slider
+                 data-per-page="<?php echo esc_attr($atts['columns']); ?>"
+                 data-loop="<?php echo esc_attr(!empty($config['slider_loop']) ? '1' : '0'); ?>"
+                 data-autoplay="<?php echo esc_attr(!empty($config['slider_autoplay']) ? '1' : '0'); ?>"
+                 data-interval="<?php echo esc_attr(isset($config['slider_interval']) ? intval($config['slider_interval']) : 6000); ?>"
+                 data-arrows="<?php echo esc_attr(isset($config['slider_arrows']) ? ($config['slider_arrows'] ? '1' : '0') : '1'); ?>">
+                <div class="splide__track">
+            <?php endif; ?>
+
             <?php
             woocommerce_product_loop_start();
-            
-            while ($related_products->have_posts()) : 
+
+            while ($related_products->have_posts()) :
                 $related_products->the_post();
-                
+
                 // Remove hooks based on settings (use global settings for consistency)
                 if (isset($this->settings['show_price']) && !$this->settings['show_price']) {
                     remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
                 }
-                
+
                 if (isset($this->settings['show_add_to_cart']) && !$this->settings['show_add_to_cart']) {
                     remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
                 }
-                
+
                 // Use WooCommerce template
                 wc_get_template_part('content', 'product');
-                
+
                 // Re-add hooks for other instances
                 if (isset($this->settings['show_price']) && !$this->settings['show_price']) {
                     add_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
                 }
-                
+
                 if (isset($this->settings['show_add_to_cart']) && !$this->settings['show_add_to_cart']) {
                     add_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
                 }
-                
+
             endwhile;
-            
+
             woocommerce_product_loop_end();
             ?>
-            
+
+            <?php if ($is_slider) : ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
         </section>
         <?php
-        
+
+        // Remove temporary Splide filters
+        if ($is_slider) {
+            remove_filter('woocommerce_product_loop_start', array($this, 'filter_loop_start_splide'));
+            remove_filter('wc_product_class', array($this, 'filter_product_class_splide'));
+        }
+
         wp_reset_postdata();
         wc_reset_loop();
-        
+
         return ob_get_clean();
+    }
+
+    /**
+     * Filter WooCommerce product loop start to add splide__list class
+     */
+    public function filter_loop_start_splide($html) {
+        return str_replace('class="products', 'class="products splide__list', $html);
+    }
+
+    /**
+     * Filter WooCommerce product class to add splide__slide class
+     */
+    public function filter_product_class_splide($classes) {
+        $classes[] = 'splide__slide';
+        return $classes;
     }
     
     /**
