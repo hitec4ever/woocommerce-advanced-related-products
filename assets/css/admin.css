@@ -1,0 +1,983 @@
+/* WooCommerce Advanced Related Products Admin Styles - Product Sets Layout */
+
+/* CSS Variables */
+:root {
+    --primary-color: #1677ff;
+    --background-primary: #ffffff;
+    --background-secondary: #f8f9fb;
+    --text-primary: #2c3e50;
+    --text-secondary: #6c757d;
+    --border-color: #e5e8eb;
+    --shadow-primary: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-secondary: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --border-radius-large: 12px;
+    --border-radius-medium: 8px;
+    --border-radius-small: 6px;
+}
+
+/* Font Family */
+.wc-product-sets-wrap,
+.wc-product-sets-wrap * {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tab Styles - Integrated in Header */
+.wc-product-sets-tabs,
+.header-tabs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.tab-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    border-radius: var(--border-radius-small);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tab-button svg {
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+}
+
+.tab-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.tab-button:hover svg {
+    opacity: 1;
+}
+
+.tab-button.active {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    font-weight: 600;
+}
+
+.tab-button.active svg {
+    opacity: 1;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.settings-container {
+    padding: 30px;
+    background: white;
+    margin: 0;
+    border-radius: 0;
+}
+
+.welcome-section {
+    margin-bottom: 40px;
+}
+
+/* Main Layout */
+.wc-product-sets-wrap {
+    background: white;
+    margin: 20px 0 0 0;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-primary);
+    overflow: hidden;
+    width: 100%;
+    max-width: none;
+    border: 1px solid var(--border-color);
+}
+
+.wc-product-sets-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+    min-height: 60px;
+}
+
+.header-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    margin-right: 16px;
+}
+
+.header-logo img {
+    height: 40px;
+    width: auto;
+    border-radius: 6px;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.2;
+}
+
+.header-subtitle {
+    margin: 0;
+    opacity: 0.8;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wc-product-sets-container {
+    background: white;
+}
+
+#wpcontent {
+    margin-right: 20px;
+}
+
+/* Welcome Section */
+.welcome-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.welcome-icon {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.welcome-icon img {
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-content h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+    line-height: 1.3;
+}
+
+.welcome-description {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin: 0 0 40px 0;
+    line-height: 1.6;
+}
+
+/* Feature Grid */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.feature-card {
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-large);
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-primary);
+    border-color: var(--primary-color);
+}
+
+.feature-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #40a9ff 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+}
+
+.feature-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 12px 0;
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Donation Card */
+.donation-card {
+    border-color: #52c41a;
+    background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);
+}
+
+.donation-card .feature-icon {
+    background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+}
+
+.donation-card:hover {
+    border-color: #52c41a;
+    transform: translateY(-4px);
+}
+
+.donation-button-wrapper {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Form Elements */
+.wc-input-field,
+.wc-select-field,
+.wc-textarea-field {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: white;
+}
+
+.wc-input-field:focus,
+.wc-select-field:focus,
+.wc-textarea-field:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
+}
+
+/* Button Styles */
+.button-primary,
+.wc-button-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #40a9ff 100%);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--border-radius-medium);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button-primary:hover,
+.wc-button-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(22, 119, 255, 0.3);
+}
+
+/* Legacy compatibility for existing styles */
+.wc-advanced-related-products-wrap {
+    /* Redirect to new styles */
+}
+
+.wc-advanced-related-products-header {
+    /* Redirect to new styles */
+}
+
+.wc-generator-header h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 24px 0;
+}
+
+.wc-advanced-related-products-setting-row {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 24px;
+}
+
+.wc-advanced-related-products-setting-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.setting-label {
+    margin-bottom: 8px;
+}
+
+.setting-label label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.setting-description {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.setting-field {
+    width: 100%;
+}
+
+/* Tables */
+.wc-shortcodes-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--border-radius-medium);
+    overflow: hidden;
+    box-shadow: var(--shadow-secondary);
+}
+
+.wc-shortcodes-table th,
+.wc-shortcodes-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.wc-shortcodes-table th {
+    background: var(--background-secondary);
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.wc-shortcodes-table tr:hover {
+    background: var(--background-secondary);
+}
+
+/* Modal Styles */
+.wc-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wc-modal-content {
+    background: white;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-primary);
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.wc-modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wc-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.wc-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.wc-modal-close:hover {
+    background: var(--background-secondary);
+    color: var(--text-primary);
+}
+
+.wc-modal-body {
+    padding: 24px;
+}
+
+.wc-modal-footer {
+    padding: 20px 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Button Variations */
+.wc-btn-secondary {
+    background: var(--background-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 12px 24px;
+    border-radius: var(--border-radius-medium);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.wc-btn-secondary:hover {
+    background: var(--border-color);
+}
+
+.wc-btn-danger {
+    background: linear-gradient(135deg, #ff4d4f 0%, #ff7875 100%);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--border-radius-small);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.wc-btn-danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 77, 79, 0.3);
+}
+
+/* Button Styles - Matching Product Sets Plugin */
+.large-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: var(--border-radius-small);
+    background: #677ce7;
+    border: none;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.large-button:hover {
+    background: #5a6ce0;
+    transform: translateY(-1px);
+}
+
+.button-hero {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: var(--border-radius-small);
+    background: #677ce7;
+    border: none;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.button-hero:hover {
+    background: #5a6ce0;
+    transform: translateY(-1px);
+}
+
+.add-product-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--border-radius-small);
+    transition: all 0.2s ease;
+    background: #677ce7;
+    border: 1px solid #677ce7;
+    color: white;
+    cursor: pointer;
+}
+
+.add-product-btn:hover {
+    background: #5a6ce0;
+    border-color: #5a6ce0;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.wc-advanced-related-products-save-btn {
+    background: #677ce7;
+    border: 1px solid #677ce7;
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--border-radius-medium);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wc-advanced-related-products-save-btn:hover {
+    background: #5a6ce0;
+    border-color: #5a6ce0;
+    transform: translateY(-1px);
+}
+
+/* Shortcode Display */
+.shortcode-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.shortcode-code {
+    background: var(--background-secondary);
+    padding: 4px 8px;
+    border-radius: var(--border-radius-small);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.copy-shortcode-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 4px 8px;
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.copy-shortcode-btn:hover {
+    background: var(--background-secondary);
+}
+
+/* Radio Options */
+.radio-option {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* Actions Cell */
+.actions-cell {
+    white-space: nowrap;
+}
+
+.actions-cell button {
+    margin-right: 8px;
+}
+
+.actions-cell button:last-child {
+    margin-right: 0;
+}
+
+/* No Shortcodes State */
+.wc-no-shortcodes {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.wc-no-shortcodes p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Settings Grid Layout */
+.wc-settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.wc-settings-column {
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: 24px;
+    box-shadow: var(--shadow-primary);
+}
+
+.wc-settings-section h4 {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.wc-settings-footer {
+    background: var(--background-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: 20px;
+    text-align: center;
+    margin-top: 24px;
+}
+
+/* Settings Row Pairs */
+.wc-settings-row-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.wc-settings-row-pair .wc-advanced-related-products-setting-row {
+    margin-bottom: 0;
+}
+
+/* Shortcode Usage Section */
+.wc-shortcode-usage {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.wc-shortcode-usage h5 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.wc-shortcode-usage p {
+    margin: 8px 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.wc-shortcode-code {
+    background: var(--background-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    padding: 8px 12px;
+    margin: 8px 0;
+}
+
+.wc-shortcode-code code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--text-primary);
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Generator Layout */
+.welcome-logo {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.generator-logo {
+    max-height: 80px;
+    width: auto;
+    /* Remove shadow from logo */
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+.generator-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 24px;
+}
+
+.generator-form-column {
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: 24px;
+    box-shadow: var(--shadow-primary);
+}
+
+.generator-features-column {
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: 24px;
+    box-shadow: var(--shadow-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .wc-product-sets-header {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .header-left {
+        justify-content: center;
+    }
+    
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .header-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .tab-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .wc-modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .wc-modal-footer {
+        flex-direction: column;
+    }
+    
+    .actions-cell {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .shortcode-display {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .wc-settings-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .wc-settings-column {
+        padding: 16px;
+    }
+    
+    .generator-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .generator-form-column,
+    .generator-features-column {
+        padding: 16px;
+    }
+    
+    .wc-settings-row-pair {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+/* Form Fields - Product Sets Style */
+.wc-input-field,
+.wc-select-field {
+    width: 100%;
+    height: 34px;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+    background-color: #fff;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.wc-input-field:focus,
+.wc-select-field:focus {
+    border-color: #5b9dd9;
+    box-shadow: 0 0 0 1px #5b9dd9;
+    outline: none;
+}
+
+.wc-input-field:disabled,
+.wc-select-field:disabled {
+    background-color: #f9f9f9;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Number Input Specific */
+.wc-input-field[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.wc-input-field[type="number"]::-webkit-outer-spin-button,
+.wc-input-field[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Select Field Specific */
+.wc-select-field {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 8px 10px;
+    padding-right: 30px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Setting Row Styling */
+.wc-advanced-related-products-setting-row {
+    margin-bottom: 20px;
+}
+
+.setting-label {
+    margin-bottom: 8px;
+}
+
+.setting-label label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.setting-description {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.setting-field {
+    margin-top: 8px;
+}
+
+/* Toggle Switch Styling */
+.wc-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.wc-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.wc-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.wc-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .wc-toggle-slider {
+    background-color: #5b9dd9;
+}
+
+input:checked + .wc-toggle-slider:before {
+    transform: translateX(26px);
+}
+
+/* Form Grid Layout */
+.wc-advanced-related-products-settings-grid {
+    display: block;
+}
+
+.wc-advanced-related-products-form {
+    max-width: none;
+}

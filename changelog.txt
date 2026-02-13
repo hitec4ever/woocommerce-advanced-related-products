@@ -1,0 +1,153 @@
+WooCommerce Advanced Related Products - Changelog
+
+= Version 2.1.0 (July 02, 2025) =
+
+**Major Interface Update - Fixed All Issues**
+
+NEW FEATURES:
+* Updated plugin name to "WooCommerce Advanced Related Products"
+* Enhanced admin interface with better styling and layout
+* Improved tab navigation with better visual design
+* Better responsive design across all devices
+
+FIXES:
+* Fixed tab styling and navigation display
+* Fixed category selection options now properly displayed vertically (Same category / Specific category)
+* Fixed Generate shortcode button text margins and alignment
+* Fixed Generate shortcode button text color (now properly white)
+* Fixed copy to clipboard functionality for shortcodes in manage tab
+* Fixed edit and delete buttons functionality in manage shortcodes
+* Fixed manage shortcodes tab styling and table layout
+* Fixed global settings tab layout - elements no longer overflow
+* Fixed global settings tab title and subtitle margins
+* Fixed form field alignments and spacing throughout
+* Fixed conditional field display (specific category dropdown)
+* Fixed JavaScript event handling for all interactive elements
+
+IMPROVEMENTS:
+* Better visual hierarchy with improved headers for each tab
+* Enhanced form styling with consistent margins and padding
+* Improved modal dialog styling and functionality
+* Better error handling and user feedback messages
+* Enhanced clipboard functionality with fallback for older browsers
+* Improved responsive design for mobile devices
+* Better form validation and user input handling
+* Consistent styling across all admin pages
+
+TECHNICAL CHANGES:
+* Updated all CSS classes and styling for better organization
+* Improved JavaScript structure and event handling
+* Better AJAX error handling and response processing
+* Enhanced form data collection and validation
+* Updated text domain references throughout codebase
+* Improved plugin constants and naming conventions
+* Better code organization and documentation
+
+BUG FIXES:
+* Fixed CSS conflicts causing layout issues
+* Fixed JavaScript errors preventing functionality
+* Fixed form submission and AJAX processing
+* Fixed responsive design breakpoints
+* Fixed modal dialog display and interaction
+* Fixed shortcode generation and management
+* Fixed settings page layout and field alignment
+
+SECURITY:
+* Enhanced nonce verification for all AJAX requests
+* Improved input sanitization and validation
+* Better capability checks for admin functions
+* Enhanced XSS protection with proper output escaping
+
+= Version 2.0.0 (June 26, 2025) =
+
+**Major Release - Complete Rewrite**
+
+NEW FEATURES:
+* Complete rewrite as single PHP class following WordPress best practices
+* Modern, beautiful admin interface with gradient styling and improved UX
+* Added 6 sorting options: Date, Popularity, Price (Low/High), Rating, Random
+* Added option to show/hide product prices
+* Added option to show/hide add to cart buttons
+* Added 3-column layout option
+* Enhanced responsive design with mobile-first approach
+* Theme-agnostic design - works with any WordPress theme
+* Settings link added to plugins page for easy access
+
+IMPROVEMENTS:
+* Removed all Flatsome theme dependencies
+* Better WPML compatibility with string registration
+* Enhanced Polylang compatibility (Pro and WooCommerce versions)
+* Improved security with proper input sanitization and validation
+* Better error handling and fallback mechanisms
+* Performance optimizations and code efficiency
+* Cleaner HTML output with proper CSS classes
+* More flexible shortcode with customizable attributes
+* Better product visibility filtering
+* Enhanced primary category detection with Yoast SEO integration
+
+TECHNICAL CHANGES:
+* Singleton pattern implementation for better performance
+* Proper text domain and internationalization support
+* WordPress coding standards compliance
+* Improved database queries with better caching
+* Better hook usage and WordPress integration
+* Enhanced plugin activation/deactivation handling
+* Proper enqueue of admin scripts and styles
+* Better option handling with default values
+
+BUG FIXES:
+* Fixed column layout issues on different screen sizes
+* Fixed category filtering edge cases
+* Fixed shortcode output buffering issues
+* Fixed admin interface styling conflicts
+* Fixed translation string issues
+* Fixed product query optimization
+
+SECURITY:
+* Enhanced input sanitization for all settings
+* Proper nonce verification for admin forms
+* Escaped output for better XSS protection
+* Validated user capabilities for admin access
+
+= Version 1.1 (Previous Release) =
+
+FEATURES:
+* Added custom title option for related products section
+* Added title alignment settings (left, center, right)
+* Improved admin interface layout
+
+IMPROVEMENTS:
+* Better settings organization
+* Enhanced user experience in admin panel
+* Code optimization and cleanup
+
+BUG FIXES:
+* Fixed minor styling issues
+* Improved compatibility with some themes
+
+= Version 1.0 (Initial Release) =
+
+FEATURES:
+* Basic related products by category functionality
+* Shortcode support [related_products_by_category]
+* Admin settings page
+* Integration with Flatsome theme
+* Configurable number of products and columns
+* Category-based product filtering
+* Date-based sorting
+* Basic responsive design
+
+COMPATIBILITY:
+* WordPress 5.0+
+* WooCommerce 4.0+
+* PHP 7.4+
+
+---
+
+Plugin Development Notes:
+- All changes follow WordPress and WooCommerce coding standards
+- Backward compatibility maintained where possible
+- Security-first approach in all implementations
+- Performance optimized for large product catalogs
+- Multilingual ready with proper text domain usage
+- Modern admin interface design following current best practices

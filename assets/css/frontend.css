@@ -1,0 +1,79 @@
+/* WooCommerce Related Products by Category - Minimal Frontend Styles */
+
+/* Only essential styles - let the theme handle the rest */
+
+.related.products h2 {
+    margin-bottom: 1em;
+    font-size: 25px;
+}
+
+/* Product grid layout */
+.related.products .products {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.related.products .products li.product {
+    margin-bottom: 2em;
+    box-sizing: border-box;
+}
+
+/* Column-specific widths for desktop */
+.related.products .products.columns-2 li.product {
+    flex: 0 0 50%;
+    max-width: 50%;
+    width: 50%;
+}
+
+.related.products .products.columns-3 li.product {
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+    width: 33.3333%;
+}
+
+.related.products .products.columns-4 li.product {
+    flex: 0 0 25%;
+    max-width: 25%;
+    width: 25%;
+}
+
+.related.products .products.columns-6 li.product {
+    flex: 0 0 16.6666%;
+    max-width: 16.6666%;
+    width: 16.6666%;
+}
+
+/* Mobile responsive layout */
+@media (max-width: 768px) {
+    .related.products .products li.product {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        width: 50% !important;
+    }
+
+    .woocommerce .related.products .products li.product,
+    .woocommerce-page .related.products .products li.product {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .related.products .products li.product {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        width: 50% !important;
+        margin-bottom: 1.5em;
+    }
+
+    .woocommerce .related.products .products li.product,
+    .woocommerce-page .related.products .products li.product {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        width: 50% !important;
+    }
+}
