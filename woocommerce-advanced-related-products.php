@@ -34,6 +34,18 @@ define('WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN', 'wc-advanced-related-products');
 
 /**
+ * Plugin Update Checker - checks GitHub for new releases
+ */
+require_once WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_DIR . 'plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$wc_arp_update_checker = PucFactory::buildUpdateChecker(
+    'https://github.com/hitec4ever/WooCommerce-Advanced-Related-Products/',
+    __FILE__,
+    'woocommerce-advanced-related-products'
+);
+
+/**
  * Main plugin class
  */
 class WC_Advanced_Related_Products {
