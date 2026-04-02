@@ -201,7 +201,9 @@ class WC_Advanced_Related_Products_Admin {
         <div class="wrap wc-product-sets-wrap">
             <div class="wc-product-sets-header">
                 <div class="header-left">
-                    <div class="header-tabs">
+                    <h1 class="header-title"><?php echo esc_html__('Advanced Related Products', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></h1>
+                    <p class="header-subtitle"><?php echo esc_html__('Advanced shortcode generator and manager for related products', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></p>
+                    <div class="header-tabs" style="margin-top: 15px;">
                         <a href="?page=wc-advanced-related-products-settings&tab=generator" class="tab-button <?php echo $active_tab === 'generator' ? 'active' : ''; ?>">
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                                 <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
@@ -223,13 +225,7 @@ class WC_Advanced_Related_Products_Admin {
                     </div>
                 </div>
                 <div class="header-right">
-                    <div class="header-logo">
-                        <img src="<?php echo WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL . 'assets/images/logo.png'; ?>" alt="Advanced Related Products" />
-                    </div>
-                    <div class="header-content">
-                        <h1 class="header-title"><?php echo esc_html__('Advanced Related Products', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></h1>
-                        <p class="header-subtitle"><?php echo esc_html__('Advanced shortcode generator and manager for related products', WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN); ?></p>
-                    </div>
+                    <img src="<?php echo WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL . 'assets/images/logo.png'; ?>" alt="Jaap de Wit" class="logo" />
                 </div>
             </div>
             

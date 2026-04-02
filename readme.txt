@@ -1,5 +1,5 @@
 === WooCommerce Advanced Related Products ===
-Contributors: wpplugins-ai
+Contributors: jaapdewit
 Tags: woocommerce, related products, category, shortcode, products
 Requires at least: 5.0
 Tested up to: 6.6

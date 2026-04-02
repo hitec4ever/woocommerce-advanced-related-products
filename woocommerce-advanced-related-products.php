@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: WooCommerce Advanced Related Products
- * Plugin URI: https://wp-plugins.ai
+ * Plugin URI: https://jaapdewit.com
  * Description: Display WooCommerce related products by category with customizable shortcode and advanced settings.
  * Version: 2.2.0
- * Author: <a href="https://wp-plugins.ai" target="_blank">WP Plugins AI</a>
- * Author URI: https://wp-plugins.ai
+ * Author: <a href="https://jaapdewit.com" target="_blank">Jaap de Wit</a>
+ * Author URI: https://jaapdewit.com
  * Text Domain: wc-advanced-related-products
  * Domain Path: /languages
  * Requires at least: 5.0
