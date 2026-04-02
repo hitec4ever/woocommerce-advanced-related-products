@@ -1,5 +1,33 @@
 WooCommerce Advanced Related Products - Changelog
 
+= Version 2.3.0 (April 02, 2026) =
+
+**Rebranding & Design Update**
+
+CHANGES:
+* Rebranded plugin to Jaap de Wit (jaapdewit.com)
+* Restyled admin interface to match Flatsome Add-ons design system
+* New color scheme with red/orange (#dc2900) accent color
+* White header with title, tabs, and logo layout
+* Updated cards, toggles, buttons, and typography styling
+* Added GitHub update checker for automatic plugin updates via releases
+
+= Version 2.2.0 (February 13, 2026) =
+
+**Slider/Carousel Display Mode**
+
+NEW FEATURES:
+* Added slider/carousel display mode for related products
+* Loop slider option
+* Navigation arrows toggle
+* Auto-slide with configurable interval
+* Integrated Splide.js for lightweight carousel functionality
+
+= Version 2.1.1 (February 13, 2026) =
+
+FIXES:
+* Minor bug fixes and improvements
+
 = Version 2.1.0 (July 02, 2025) =
 
 **Major Interface Update - Fixed All Issues**
