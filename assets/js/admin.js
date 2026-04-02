@@ -284,19 +284,55 @@ var WCAdvancedRelatedProductsAdmin = {
                         <input type="text" name="shortcode_title" value="${this.escapeHtml(data.title)}" class="wc-input-field" required />
                     </div>
                 </div>
-                
-                <div class="wc-advanced-related-products-setting-row">
-                    <div class="setting-label">
-                        <label>Filter Type</label>
+
+                <div class="wc-settings-row-pair">
+                    <div class="wc-advanced-related-products-setting-row">
+                        <div class="setting-label">
+                            <label>Section Title</label>
+                        </div>
+                        <div class="setting-field">
+                            <input type="text" name="section_title" value="${this.escapeHtml(data.section_title)}" class="wc-input-field" />
+                        </div>
                     </div>
-                    <div class="setting-field">
-                        <select name="filter_type" class="wc-select-field" id="edit-filter-type-select">
-                            <option value="category" ${data.filter_type === 'category' ? 'selected' : ''}>Filter by Category</option>
-                            <option value="attribute" ${data.filter_type === 'attribute' ? 'selected' : ''}>Filter by Attribute</option>
-                        </select>
+                    <div class="wc-advanced-related-products-setting-row">
+                        <div class="setting-label">
+                            <label>Title Alignment</label>
+                        </div>
+                        <div class="setting-field">
+                            <select name="title_alignment" class="wc-select-field">
+                                <option value="left" ${data.title_alignment === 'left' ? 'selected' : ''}>Left</option>
+                                <option value="center" ${data.title_alignment === 'center' ? 'selected' : ''}>Center</option>
+                                <option value="right" ${data.title_alignment === 'right' ? 'selected' : ''}>Right</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                
+
+                <div class="wc-settings-row-pair">
+                    <div class="wc-advanced-related-products-setting-row">
+                        <div class="setting-label">
+                            <label>Filter Type</label>
+                        </div>
+                        <div class="setting-field">
+                            <select name="filter_type" class="wc-select-field" id="edit-filter-type-select">
+                                <option value="category" ${data.filter_type === 'category' ? 'selected' : ''}>Filter by Category</option>
+                                <option value="attribute" ${data.filter_type === 'attribute' ? 'selected' : ''}>Filter by Attribute</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="wc-advanced-related-products-setting-row" id="edit-attribute-options" ${data.filter_type !== 'attribute' ? 'style="display:none;"' : ''}>
+                        <div class="setting-label">
+                            <label>Product Attribute</label>
+                        </div>
+                        <div class="setting-field">
+                            <select name="product_attribute" class="wc-select-field">
+                                <option value="">Select an attribute</option>
+                                ${attributesOptions}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="wc-advanced-related-products-setting-row" id="edit-category-options" ${data.filter_type !== 'category' ? 'style="display:none;"' : ''}>
                     <div class="setting-label">
                         <label>Category Selection</label>
@@ -320,80 +356,60 @@ var WCAdvancedRelatedProductsAdmin = {
                         </div>
                     </div>
                 </div>
-                
-                <div class="wc-advanced-related-products-setting-row" id="edit-attribute-options" ${data.filter_type !== 'attribute' ? 'style="display:none;"' : ''}>
-                    <div class="setting-label">
-                        <label>Product Attribute</label>
+
+                <div class="wc-settings-row-pair">
+                    <div class="wc-advanced-related-products-setting-row">
+                        <div class="setting-label">
+                            <label>Number of Products</label>
+                        </div>
+                        <div class="setting-field">
+                            <input type="number" name="number_of_products" value="${data.number_of_products}" min="1" max="12" class="wc-input-field" />
+                        </div>
                     </div>
-                    <div class="setting-field">
-                        <select name="product_attribute" class="wc-select-field">
-                            <option value="">Select an attribute</option>
-                            ${attributesOptions}
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="wc-advanced-related-products-setting-row">
-                    <div class="setting-label">
-                        <label>Number of Products</label>
-                    </div>
-                    <div class="setting-field">
-                        <input type="number" name="number_of_products" value="${data.number_of_products}" min="1" max="12" class="wc-input-field" />
-                    </div>
-                </div>
-                
-                <div class="wc-advanced-related-products-setting-row">
-                    <div class="setting-label">
-                        <label>Columns per Row</label>
-                    </div>
-                    <div class="setting-field">
-                        <select name="number_of_columns" class="wc-select-field">
-                            <option value="2" ${data.number_of_columns == 2 ? 'selected' : ''}>2 Columns</option>
-                            <option value="3" ${data.number_of_columns == 3 ? 'selected' : ''}>3 Columns</option>
-                            <option value="4" ${data.number_of_columns == 4 ? 'selected' : ''}>4 Columns</option>
-                            <option value="6" ${data.number_of_columns == 6 ? 'selected' : ''}>6 Columns</option>
-                        </select>
+                    <div class="wc-advanced-related-products-setting-row">
+                        <div class="setting-label">
+                            <label>Columns per Row</label>
+                        </div>
+                        <div class="setting-field">
+                            <select name="number_of_columns" class="wc-select-field">
+                                <option value="2" ${data.number_of_columns == 2 ? 'selected' : ''}>2 Columns</option>
+                                <option value="3" ${data.number_of_columns == 3 ? 'selected' : ''}>3 Columns</option>
+                                <option value="4" ${data.number_of_columns == 4 ? 'selected' : ''}>4 Columns</option>
+                                <option value="6" ${data.number_of_columns == 6 ? 'selected' : ''}>6 Columns</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="wc-advanced-related-products-setting-row">
-                    <div class="setting-label">
-                        <label>Sort Products By</label>
+
+                <div class="wc-settings-row-pair">
+                    <div class="wc-advanced-related-products-setting-row">
+                        <div class="setting-label">
+                            <label>Sort Products By</label>
+                        </div>
+                        <div class="setting-field">
+                            <select name="sort_by" class="wc-select-field">
+                                <option value="date" ${data.sort_by === 'date' ? 'selected' : ''}>Date (Newest First)</option>
+                                <option value="popularity" ${data.sort_by === 'popularity' ? 'selected' : ''}>Popularity</option>
+                                <option value="price_low" ${data.sort_by === 'price_low' ? 'selected' : ''}>Price (Low to High)</option>
+                                <option value="price_high" ${data.sort_by === 'price_high' ? 'selected' : ''}>Price (High to Low)</option>
+                                <option value="rating" ${data.sort_by === 'rating' ? 'selected' : ''}>Customer Rating</option>
+                                <option value="random" ${data.sort_by === 'random' ? 'selected' : ''}>Random</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="setting-field">
-                        <select name="sort_by" class="wc-select-field">
-                            <option value="date" ${data.sort_by === 'date' ? 'selected' : ''}>Date (Newest First)</option>
-                            <option value="popularity" ${data.sort_by === 'popularity' ? 'selected' : ''}>Popularity</option>
-                            <option value="price_low" ${data.sort_by === 'price_low' ? 'selected' : ''}>Price (Low to High)</option>
-                            <option value="price_high" ${data.sort_by === 'price_high' ? 'selected' : ''}>Price (High to Low)</option>
-                            <option value="rating" ${data.sort_by === 'rating' ? 'selected' : ''}>Customer Rating</option>
-                            <option value="random" ${data.sort_by === 'random' ? 'selected' : ''}>Random</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="wc-advanced-related-products-setting-row">
-                    <div class="setting-label">
-                        <label>Section Title</label>
-                    </div>
-                    <div class="setting-field">
-                        <input type="text" name="section_title" value="${this.escapeHtml(data.section_title)}" class="wc-input-field" />
-                    </div>
-                </div>
-                
-                <div class="wc-advanced-related-products-setting-row">
-                    <div class="setting-label">
-                        <label>Title Alignment</label>
-                    </div>
-                    <div class="setting-field">
-                        <select name="title_alignment" class="wc-select-field">
-                            <option value="left" ${data.title_alignment === 'left' ? 'selected' : ''}>Left</option>
-                            <option value="center" ${data.title_alignment === 'center' ? 'selected' : ''}>Center</option>
-                            <option value="right" ${data.title_alignment === 'right' ? 'selected' : ''}>Right</option>
-                        </select>
+                    <div class="wc-advanced-related-products-setting-row">
+                        <div class="setting-label">
+                            <label>Display Mode</label>
+                        </div>
+                        <div class="setting-field">
+                            <select name="display_mode" class="wc-select-field" id="edit-display-mode-select">
+                                <option value="grid" ${(!data.display_mode || data.display_mode === 'grid') ? 'selected' : ''}>Grid</option>
+                                <option value="slider" ${data.display_mode === 'slider' ? 'selected' : ''}>Slider / Carousel</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="wc-advanced-related-products-setting-row">
                     <div class="setting-label">
                         <label>Show Product Price</label>
@@ -403,18 +419,6 @@ var WCAdvancedRelatedProductsAdmin = {
                             <input type="checkbox" name="show_price" value="1" ${data.show_price ? 'checked' : ''} />
                             <span class="wc-toggle-slider"></span>
                         </label>
-                    </div>
-                </div>
-
-                <div class="wc-advanced-related-products-setting-row">
-                    <div class="setting-label">
-                        <label>Display Mode</label>
-                    </div>
-                    <div class="setting-field">
-                        <select name="display_mode" class="wc-select-field" id="edit-display-mode-select">
-                            <option value="grid" ${(!data.display_mode || data.display_mode === 'grid') ? 'selected' : ''}>Grid</option>
-                            <option value="slider" ${data.display_mode === 'slider' ? 'selected' : ''}>Slider / Carousel</option>
-                        </select>
                     </div>
                 </div>
 
@@ -431,7 +435,6 @@ var WCAdvancedRelatedProductsAdmin = {
                                 </label>
                             </div>
                         </div>
-
                         <div class="wc-advanced-related-products-setting-row">
                             <div class="setting-label">
                                 <label>Show Navigation</label>
@@ -444,7 +447,6 @@ var WCAdvancedRelatedProductsAdmin = {
                             </div>
                         </div>
                     </div>
-
                     <div class="wc-settings-row-pair">
                         <div class="wc-advanced-related-products-setting-row">
                             <div class="setting-label">
@@ -457,7 +459,6 @@ var WCAdvancedRelatedProductsAdmin = {
                                 </label>
                             </div>
                         </div>
-
                         <div class="wc-advanced-related-products-setting-row">
                             <div class="setting-label">
                                 <label>Slide Interval (ms)</label>

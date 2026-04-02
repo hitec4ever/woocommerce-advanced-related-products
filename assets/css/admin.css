@@ -768,6 +768,41 @@ input:checked + .wc-toggle-slider:before {
     justify-content: flex-end;
 }
 
+.wc-modal-footer button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.4;
+}
+
+.wc-modal-footer .wc-advanced-related-products-save-btn {
+    background: #dc2900;
+    border: 1px solid #dc2900;
+    color: white;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.wc-modal-footer .wc-advanced-related-products-save-btn:hover {
+    background: #b82200;
+    border-color: #b82200;
+    transform: translateY(-1px);
+}
+
+.wc-modal-footer .wc-btn-secondary {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    color: #495057;
+}
+
+.wc-modal-footer .wc-btn-secondary:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+}
+
 /* ================================================
    Settings Grid (Global Settings Tab)
    ================================================ */

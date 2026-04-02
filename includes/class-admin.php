@@ -238,9 +238,6 @@ class WC_Advanced_Related_Products_Admin {
                             </div>
                             
                             <div class="generator-features-column">
-                                <div class="welcome-logo">
-                                    <img src="<?php echo WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL . 'assets/images/logo.png'; ?>" alt="Advanced Related Products" class="generator-logo">
-                                </div>
                                 <div class="feature-grid">
                                     <div class="feature-card">
                                         <div class="feature-icon">
