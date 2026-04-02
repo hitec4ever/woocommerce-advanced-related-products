@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Advanced Related Products
  * Plugin URI: https://jaapdewit.com
  * Description: Display WooCommerce related products by category with customizable shortcode and advanced settings.
- * Version: 2.2.0
+ * Version: 2.3.0
  * Author: <a href="https://jaapdewit.com" target="_blank">Jaap de Wit</a>
  * Author URI: https://jaapdewit.com
  * Text Domain: wc-advanced-related-products
@@ -28,7 +28,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 }
 
 // Define plugin constants
-define('WC_ADVANCED_RELATED_PRODUCTS_VERSION', '2.2.0');
+define('WC_ADVANCED_RELATED_PRODUCTS_VERSION', '2.3.0');
 define('WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('WC_ADVANCED_RELATED_PRODUCTS_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('WC_ADVANCED_RELATED_PRODUCTS_TEXT_DOMAIN', 'wc-advanced-related-products');
