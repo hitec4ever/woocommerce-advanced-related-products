@@ -96,6 +96,22 @@ The plugin first tries to use the primary category set by Yoast SEO (if availabl
 
 == Changelog ==
 
+= 2.3.0 =
+* Rebranded plugin to Jaap de Wit (jaapdewit.com)
+* Restyled admin interface to Flatsome Add-ons design system
+* New color scheme with red/orange accent color
+* White header layout with title, tabs, and logo
+* Updated cards, toggles, buttons, and typography
+* Added GitHub update checker for automatic plugin updates
+
+= 2.2.0 =
+* Added slider/carousel display mode for related products
+* Loop slider, navigation arrows, and auto-slide options
+* Integrated Splide.js for lightweight carousel functionality
+
+= 2.1.1 =
+* Minor bug fixes and improvements
+
 = 2.1.0 =
 * Updated plugin name to "WooCommerce Advanced Related Products"
 * Improved tab navigation styling and layout
@@ -183,6 +199,12 @@ BUG FIXES:
 * Basic responsive design
 
 == Upgrade Notice ==
+
+= 2.3.0 =
+Rebranded to Jaap de Wit with new Flatsome-style admin design and automatic GitHub updates.
+
+= 2.2.0 =
+Added slider/carousel display mode for related products.
 
 = 2.1.0 =
 Major interface improvements with better styling, fixed functionality, and enhanced user experience. All buttons and features now work properly.
