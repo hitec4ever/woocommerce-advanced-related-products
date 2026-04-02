@@ -1,0 +1,26 @@
+name: Build Release ZIP
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build plugin ZIP
+        run: |
+          mkdir -p woocommerce-advanced-related-products
+          rsync -a --exclude='.git' --exclude='.github' --exclude='.gitignore' --exclude='.DS_Store' --exclude='.claude' ./ woocommerce-advanced-related-products/
+          zip -r woocommerce-advanced-related-products.zip woocommerce-advanced-related-products/
+
+      - name: Upload ZIP to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: woocommerce-advanced-related-products.zip

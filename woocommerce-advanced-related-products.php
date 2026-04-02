@@ -44,6 +44,7 @@ $wc_arp_update_checker = PucFactory::buildUpdateChecker(
     __FILE__,
     'woocommerce-advanced-related-products'
 );
+$wc_arp_update_checker->getVcsApi()->enableReleaseAssets();
 
 /**
  * Main plugin class
