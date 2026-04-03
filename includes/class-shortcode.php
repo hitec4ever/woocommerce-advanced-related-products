@@ -157,7 +157,10 @@ class WC_Advanced_Related_Products_Shortcode {
         wc_set_loop_prop('is_paginated', false);
         wc_set_loop_prop('total', $related_products->found_posts);
         wc_set_loop_prop('current_page', 1);
-        
+
+        // Ensure columns class is added to product loop
+        add_filter('woocommerce_product_loop_start', array($this, 'filter_loop_start_columns'));
+
         ?>
         <section class="related products">
             <?php if (!empty($atts['title'])) : ?>
@@ -165,7 +168,7 @@ class WC_Advanced_Related_Products_Shortcode {
                     <?php echo esc_html($atts['title']); ?>
                 </h2>
             <?php endif; ?>
-            
+
             <?php
             woocommerce_product_loop_start();
             
@@ -200,13 +203,15 @@ class WC_Advanced_Related_Products_Shortcode {
             
         </section>
         <?php
-        
+
+        remove_filter('woocommerce_product_loop_start', array($this, 'filter_loop_start_columns'));
+
         wp_reset_postdata();
         wc_reset_loop();
-        
+
         return ob_get_clean();
     }
-    
+
     /**
      * Handle custom shortcode with ID
      */
@@ -270,6 +275,9 @@ class WC_Advanced_Related_Products_Shortcode {
         wc_set_loop_prop('is_paginated', false);
         wc_set_loop_prop('total', $related_products->found_posts);
         wc_set_loop_prop('current_page', 1);
+
+        // Ensure columns class is added to product loop
+        add_filter('woocommerce_product_loop_start', array($this, 'filter_loop_start_columns'));
 
         // Add temporary WC filters for Splide classes
         if ($is_slider) {
@@ -336,7 +344,8 @@ class WC_Advanced_Related_Products_Shortcode {
         </section>
         <?php
 
-        // Remove temporary Splide filters
+        // Remove temporary filters
+        remove_filter('woocommerce_product_loop_start', array($this, 'filter_loop_start_columns'));
         if ($is_slider) {
             remove_filter('woocommerce_product_loop_start', array($this, 'filter_loop_start_splide'));
             remove_filter('wc_product_class', array($this, 'filter_product_class_splide'));
@@ -346,6 +355,18 @@ class WC_Advanced_Related_Products_Shortcode {
         wc_reset_loop();
 
         return ob_get_clean();
+    }
+
+    /**
+     * Filter WooCommerce product loop start to add columns class
+     */
+    public function filter_loop_start_columns($html) {
+        $columns = wc_get_loop_prop('columns', 4);
+        // Add columns-X class if not already present
+        if (strpos($html, 'columns-') === false) {
+            $html = str_replace('class="products', 'class="products columns-' . intval($columns), $html);
+        }
+        return $html;
     }
 
     /**
