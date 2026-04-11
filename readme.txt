@@ -4,7 +4,7 @@ Tags: woocommerce, related products, category, shortcode, products
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.3.2
+Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,11 @@ The plugin first tries to use the primary category set by Yoast SEO (if availabl
 7. Global settings page with all customization options
 
 == Changelog ==
+
+= 2.3.3 =
+* Performance: Added `no_found_rows` to related-products query to skip costly SQL_CALC_FOUND_ROWS subquery
+* Performance: Added 1-hour transient caching for related products on product pages
+* Cache automatically flushes when products are saved, updated, or deleted
 
 = 2.3.0 =
 * Rebranded plugin to Jaap de Wit (jaapdewit.com)

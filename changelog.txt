@@ -1,5 +1,15 @@
 WooCommerce Advanced Related Products - Changelog
 
+= Version 2.3.3 (April 11, 2026) =
+
+**Performance Improvements**
+
+PERFORMANCE:
+* Added `no_found_rows => true` to related-products WP_Query, skipping the costly SQL_CALC_FOUND_ROWS subquery (~50% query time reduction)
+* Added 1-hour transient caching for resolved related-product IDs in render_products()
+* Cache key based on serialized query args, so each product/category combination caches independently
+* Auto-flush of all related-product transients on save_post_product, woocommerce_update_product and woocommerce_delete_product hooks
+
 = Version 2.3.0 (April 02, 2026) =
 
 **Rebranding & Design Update**

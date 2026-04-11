@@ -35,12 +35,29 @@ class WC_Advanced_Related_Products_Shortcode {
      */
     private function __construct() {
         $this->settings = get_option('wc_advanced_related_products_settings', $this->get_default_settings());
-        
+
         // Register shortcode
         add_shortcode('related_products_by_category', array($this, 'shortcode_handler'));
-        
+
         // Enqueue minimal frontend styles
         add_action('wp_enqueue_scripts', array($this, 'enqueue_frontend_styles'));
+
+        // Flush related-products transient cache when a product is saved/updated
+        add_action('save_post_product', array($this, 'flush_related_cache'));
+        add_action('woocommerce_update_product', array($this, 'flush_related_cache'));
+        add_action('woocommerce_delete_product', array($this, 'flush_related_cache'));
+    }
+
+    /**
+     * Flush all wc_related_* transients (called on product save/update/delete)
+     */
+    public function flush_related_cache() {
+        global $wpdb;
+        $wpdb->query(
+            "DELETE FROM {$wpdb->options}
+             WHERE option_name LIKE '_transient_wc_related_%'
+                OR option_name LIKE '_transient_timeout_wc_related_%'"
+        );
     }
     
     /**
@@ -243,7 +260,28 @@ class WC_Advanced_Related_Products_Shortcode {
      * Render products output
      */
     private function render_products($query_args, $atts, $config) {
-        $related_products = new WP_Query($query_args);
+        // Transient cache: store resolved product IDs to skip expensive WP_Query on repeat page views
+        $cache_key = 'wc_related_' . md5(serialize($query_args));
+        $cached_ids = get_transient($cache_key);
+
+        if (false !== $cached_ids) {
+            if (empty($cached_ids)) {
+                return '';
+            }
+            $related_products = new WP_Query(array(
+                'post_type'           => 'product',
+                'post_status'         => 'publish',
+                'post__in'            => $cached_ids,
+                'posts_per_page'      => count($cached_ids),
+                'orderby'             => 'post__in',
+                'no_found_rows'       => true,
+                'ignore_sticky_posts' => true,
+            ));
+        } else {
+            $related_products = new WP_Query($query_args);
+            $ids = wp_list_pluck($related_products->posts, 'ID');
+            set_transient($cache_key, $ids, HOUR_IN_SECONDS);
+        }
 
         if (!$related_products->have_posts()) {
             return '';
@@ -393,6 +431,7 @@ class WC_Advanced_Related_Products_Shortcode {
             'posts_per_page' => intval($atts['limit']),
             'post__not_in' => array($product->get_id()),
             'post_status' => 'publish',
+            'no_found_rows' => true,
             'meta_query' => array(
                 array(
                     'key' => '_stock_status',
@@ -460,6 +499,7 @@ class WC_Advanced_Related_Products_Shortcode {
             'posts_per_page' => intval($atts['limit']),
             'post__not_in' => array($product->get_id()),
             'post_status' => 'publish',
+            'no_found_rows' => true,
             'meta_query' => array(
                 array(
                     'key' => '_stock_status',
